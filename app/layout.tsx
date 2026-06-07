@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://systems-architecture.vercel.app"),
   title: "Systems Architecture",
   description:
     "Architecture decisions at scale — analytics platform migration and cloud infrastructure evaluation by Wahid Tawsif Ratul, Product Analytics Engineer at Optimizely.",
