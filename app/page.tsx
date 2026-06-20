@@ -24,7 +24,7 @@ const TIMELINE_MILESTONES = [
   },
   {
     phase: "Decision", color: "#a5b4fc", icon: "◆",
-    desc: "Decision Record 001 approved: Mixpanel out, Optimizely Analytics in. Decision Record 002 approved: Service Rewrite primary, Iceberg fallback. Both decisions challenged. Both held.",
+    desc: "Decision Record 001 approved: Mixpanel out, the in-house analytics platform in. Decision Record 002 approved: Service Rewrite primary, Iceberg fallback. Both decisions challenged. Both held.",
     outcomes: ["2 decisions approved by leadership", "Engineering roadmap set", "Parallel-run period designed"],
   },
   {
@@ -34,7 +34,7 @@ const TIMELINE_MILESTONES = [
   },
   {
     phase: "Production", color: "#34d399", icon: "◉",
-    desc: "Mixpanel decommissioned. Optimizely Analytics is the single source. 100+ weekly active users from day one. Zero data loss events since launch.",
+    desc: "Mixpanel decommissioned. The in-house analytics platform is the single source. 100+ weekly active users from day one. Zero data loss events since launch.",
     outcomes: ["100+ weekly active users from day one", "0 data loss events", "Board deck: one number, one source"],
   },
 ];
@@ -118,7 +118,7 @@ const STORY_CHAPTERS = [
   { label: "Ch01", title: "The Problem",          desc: "Two things were broken",                      href: "#problem"   },
   { label: "Ch02", title: "The Analysis",         desc: "How I ruled out 5 of 6",                     href: "#analysis"  },
   { label: "Ch03", title: "The Decision",         desc: "What shipped and why it held",                href: "#decision"  },
-  { label: "Ch04", title: "Patterns That Travel", desc: "Not Optimizely-specific",                     href: "#patterns"  },
+  { label: "Ch04", title: "Patterns That Travel", desc: "Not platform-specific",                       href: "#patterns"  },
 ];
 
 const BEFORE_DIMS = [
@@ -136,7 +136,7 @@ const AFTER_DIMS = [
   { label: "Stakeholder trust",  score: 9, color: "#34d399", desc: "One number, one source: board-level reporting from the same warehouse as the product data"      },
   { label: "Cost scalability",   score: 8, color: "#34d399", desc: "Warehouse compute scales with query volume, not active user headcount"                           },
   { label: "Analysis speed",     score: 9, color: "#34d399", desc: "Analysts query directly: no export wait, no reconciliation, no gap-filling before analysis"     },
-  { label: "Cross-product view", score: 9, color: "#34d399", desc: "Unified cohorts across Experimentation, CMS, Feature Flags, and Opal in a single query"        },
+  { label: "Cross-product view", score: 9, color: "#34d399", desc: "Unified cohorts across Experimentation, CMS, Feature Flags, and the AI agent in a single query"        },
 ];
 
 const ALT_DETAILS = [
@@ -164,7 +164,7 @@ const ALT_DETAILS = [
   {
     num: 4, name: "Materialized Views", approach: "Snowflake materialized views to BigQuery via Data Transfer Service",
     verdict: "REJECTED", verdictColor: "#f43f5e", cost: "Medium", complexity: "Medium",
-    reason: "The BigQuery Data Transfer Service only supports Snowflake tables, not secure views. Customer data in the Optimizely Data Platform is exposed exclusively through secure views. This hits a hard incompatibility before data movement even starts.",
+    reason: "The BigQuery Data Transfer Service only supports Snowflake tables, not secure views. Customer data in the customer data platform (CDP) is exposed exclusively through secure views. This hits a hard incompatibility before data movement even starts.",
     constraint: "BQ Data Transfer Service cannot read Snowflake secure views",
     learn: { term: "What are Snowflake Secure Views?", body: "Secure views in Snowflake hide the underlying SQL definition from consumers, unlike standard views. This is used for customer data isolation: each customer's database is exposed only via a secure view that enforces row-level access control. The BigQuery Data Transfer Service can replicate standard tables, but not secure views, because it cannot execute the view's hidden SQL against the source database." },
   },
@@ -245,14 +245,14 @@ const PIPELINE_NODES = [
     ],
     ai: [
       "dbt Copilot: AI-generated model scaffolding from plain-language business logic descriptions, tests and docs included",
-      "Semantic Layer: define metrics once in dbt, query from Optimizely Analytics, Power BI, or any AI agent without duplication or drift",
+      "Semantic Layer: define metrics once in dbt, query from the Analytics Platform, Power BI, or any AI agent without duplication or drift",
       "Auto-documentation: AI-generated column and model descriptions from SQL patterns, synced to dbt Explorer",
     ],
   },
   {
     id: "reporting", label: "REPORTING", sub: "Curated Analytics", color: "#6366f1",
     icon: "◉",
-    desc: "The consumption-ready layer. ARR joins, identity resolution, and cross-product cohorts are pre-computed and materialized. Optimizely Analytics queries this layer directly via Snowflake: no ETL, no sync, no mirror tables. Sub-2-second query latency for 100+ weekly active users.",
+    desc: "The consumption-ready layer. ARR joins, identity resolution, and cross-product cohorts are pre-computed and materialized. The in-house analytics platform queries this layer directly via Snowflake: no ETL, no sync, no mirror tables. Sub-2-second query latency for 100+ weekly active users.",
     metrics: [
       { k: "Query latency P95",     v: "<2s"        },
       { k: "ARR join availability", v: "Yes"        },
@@ -268,7 +268,7 @@ const PIPELINE_NODES = [
   {
     id: "consumers", label: "Consumers", sub: "Dashboards + AI Agents", color: "#f43f5e",
     icon: "◈",
-    desc: "Three consumer tiers on the same Snowflake data: Optimizely Analytics for product analytics (product managers, daily exploration), Power BI for business intelligence (Finance, weekly reporting), and Opal AI agents for analytics workflows (board prep, Customer Success alerts, roadmap analysis). 100+ weekly active users across all three tiers.",
+    desc: "Three consumer tiers on the same Snowflake data: the in-house analytics platform for product analytics (product managers, daily exploration), Power BI for business intelligence (Finance, weekly reporting), and AI Agent workflows for analytics (board prep, Customer Success alerts, roadmap analysis). 100+ weekly active users across all three tiers.",
     metrics: [
       { k: "Weekly active users",  v: "100+"  },
       { k: "Dashboard tiers",      v: "4"     },
@@ -276,7 +276,7 @@ const PIPELINE_NODES = [
       { k: "Stakeholder groups",   v: "3"     },
     ],
     ai: [
-      "Opal AI agents: 4-persona analytics workflows for board prep, roadmap analysis, Customer Success risk alerts, and sales call prep",
+      "AI Agent workflows: 4-persona analytics workflows for board prep, roadmap analysis, Customer Success risk alerts, and sales call prep",
       "Cortex Search: RAG over experiment hypotheses and product documentation stored natively in Snowflake",
       "PowerBI AI: anomaly detection and smart narrative generation on revenue and contract BI reports",
     ],
@@ -426,7 +426,7 @@ SELECT * FROM base`,
       {
         name: "Semantic Layer",
         tag: "Metric Governance",
-        desc: "Define metrics once in dbt. Query the same definition from Optimizely Analytics, Power BI, or Cortex Analyst. No duplication, no drift between tools. The metric lives in code, not in each dashboard.",
+        desc: "Define metrics once in dbt. Query the same definition from the Analytics Platform, Power BI, or Cortex Analyst. No duplication, no drift between tools. The metric lives in code, not in each dashboard.",
         code: `# metrics.yml
 metrics:
   - name: qualified_experiment_rate
@@ -454,7 +454,7 @@ description: >-
   in the period. Primary metric for product manager adoption
   reporting: measures quality, not just quantity.
   Used in board decks, Customer Success risk scoring, and
-  Optimizely Analytics product dashboards.`,
+  the Analytics Platform product dashboards.`,
       },
     ],
   },
@@ -463,13 +463,13 @@ description: >-
 const ARCH_INDUSTRY_MAP = [
   {
     sector: "B2B SaaS",
-    subsector: "Optimizely: Reference implementation",
+    subsector: "The platform: Reference implementation",
     color: "#f43f5e",
-    warehouseTool: "Snowflake + Optimizely Analytics (warehouse-native query layer)",
+    warehouseTool: "Snowflake + Analytics Platform (warehouse-native query layer)",
     biTool: "PowerBI: Finance, Sales, Executive: contract reporting, ARR forecasting, board decks",
     primaryMetric: "Qualified experiment rate, feature adoption (last 30 days), ARR-linked engagement by account",
     cloudMigration: "Snowflake on AWS to BigQuery on GCP. Egress cost dominates the full-export cost model. Service rewrite is the only approach that removes it entirely.",
-    biSplit: "Optimizely Analytics for product managers: behavioural cohorts, funnel analysis, cross-product joins. Power BI for Finance: contract overages, ARR, board decks. Finance said no to pivot tables in Optimizely Analytics. They were right.",
+    biSplit: "The Analytics Platform for product managers: behavioural cohorts, funnel analysis, cross-product joins. Power BI for Finance: contract overages, ARR, board decks. Finance said no to pivot tables in the Analytics Platform. They were right.",
     compliance: "Standard enterprise SaaS: SOC 2 Type II, data processor agreements. No sector-specific data residency constraints.",
     isReference: true,
   },
@@ -650,7 +650,7 @@ export default function Home() {
               "it depends." That answer destroys credibility at the board level.
             </p>
             <p className="text-[#94a3b8] leading-relaxed">
-              The migration wasn't about picking Optimizely Analytics over Mixpanel. It was about making
+              The migration wasn't about picking the in-house analytics platform over Mixpanel. It was about making
               the question impossible to ask: one warehouse, one number, no sync cycle, no fork.
             </p>
             <PullQuote text="It wasn't about picking one tool over another. It was about making the question impossible to ask." />
@@ -659,7 +659,7 @@ export default function Home() {
           <SectionLabel label="Decision Record 001" />
           <div className="space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Analytics Platform Migration</h2>
-            <p className="text-[#94a3b8]">Mixpanel to Optimizely Analytics: warehouse-native product analytics</p>
+            <p className="text-[#94a3b8]">Mixpanel to the in-house analytics platform: warehouse-native product analytics</p>
           </div>
 
           <div className="space-y-2">
@@ -706,7 +706,7 @@ export default function Home() {
           <p className="text-[#94a3b8] text-sm max-w-xl">
             The fundamental problem was a mirror. Snowflake was the source of truth, but Mixpanel needed its own copy.
             Every schema change broke the sync. Removing the mirror removed the problem.
-            <LearnMore term="What is warehouse-native analytics?" body="A warehouse-native analytics tool queries your data warehouse directly, rather than requiring you to sync or export data into a separate analytics database. Optimizely Analytics connects directly to Snowflake and runs queries against your existing tables in real time: no ETL pipeline, no mirror tables, no sync cycle, no version skew." />
+            <LearnMore term="What is warehouse-native analytics?" body="A warehouse-native analytics tool queries your data warehouse directly, rather than requiring you to sync or export data into a separate analytics database. The in-house analytics platform connects directly to Snowflake and runs queries against your existing tables in real time: no ETL pipeline, no mirror tables, no sync cycle, no version skew." />
           </p>
           <Objection
             question="Why not just fix the sync instead of replacing Mixpanel entirely?"
@@ -754,22 +754,22 @@ export default function Home() {
 
           {/* ADR-001b */}
           <SectionLabel label="Decision Record 001b" />
-          <h2 className="text-2xl font-bold text-white">Why Optimizely Analytics + Power BI Coexist</h2>
+          <h2 className="text-2xl font-bold text-white">Why the Analytics Platform + Power BI Coexist</h2>
           <p className="text-[#94a3b8] text-sm max-w-2xl">
-            Migrating to Optimizely Analytics raised an obvious question: why keep Power BI at all? The answer is that they solve
+            Migrating to the in-house analytics platform raised an obvious question: why keep Power BI at all? The answer is that they solve
             structurally different problems for structurally different audiences. Collapsing them would have made
             each audience worse off.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="rounded-xl p-6 space-y-4" style={{ background: "rgba(99,102,241,0.07)", border: "1px solid rgba(99,102,241,0.2)" }}>
-              <span className="text-xs font-bold px-2 py-1 rounded tracking-widest uppercase" style={{ background: "rgba(99,102,241,0.15)", color: "#818cf8" }}>Optimizely Analytics</span>
+              <span className="text-xs font-bold px-2 py-1 rounded tracking-widest uppercase" style={{ background: "rgba(99,102,241,0.15)", color: "#818cf8" }}>Analytics Platform</span>
               <div className="space-y-2 pt-1">
                 {[
                   { label: "Audience",   value: "Product Managers, Analytics"                                              },
                   { label: "Cadence",    value: "Daily / real-time exploration"                                            },
                   { label: "Strengths",  value: "Behavioural cohorts, funnel analysis, cross-product joins, warehouse-native" },
-                  { label: "Dashboards", value: "Usage, adoption, Opal, PSAT: multi-tier by stakeholder"                  },
+                  { label: "Dashboards", value: "Usage, adoption, AI Agent, PSAT: multi-tier by stakeholder"            },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex gap-3 text-sm">
                     <span className="text-[#64748b] font-medium w-24 flex-shrink-0">{label}</span>
@@ -785,7 +785,7 @@ export default function Home() {
                   { label: "Audience",  value: "Sales, Customer Success, Finance, Executive"                              },
                   { label: "Cadence",   value: "Weekly / monthly reporting"                                                },
                   { label: "Strengths", value: "Revenue modelling, contract overages, ARR forecasting, board formatting"   },
-                  { label: "Reports",   value: "Overages, Opal billing, DXP forecasts: revenue and contracts"              },
+                  { label: "Reports",   value: "Overages, AI Agent billing, DXP forecasts: revenue and contracts"        },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex gap-3 text-sm">
                     <span className="text-[#64748b] font-medium w-24 flex-shrink-0">{label}</span>
@@ -802,9 +802,9 @@ export default function Home() {
               <p style={{ fontSize: "1.1rem", fontWeight: 700, color: "#F2C811", fontStyle: "italic", lineHeight: 1.45, marginBottom: "8px" }}>
                 The pivot tables aren&apos;t good enough.
               </p>
-              <p style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: "14px" }}>— Finance, after the first Optimizely Analytics demo</p>
+              <p style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: "14px" }}>— Finance, after the first Analytics Platform demo</p>
               <p style={{ fontSize: "0.85rem", color: "#94a3b8", lineHeight: 1.65 }}>
-                I spent a week trying to prove otherwise. They were right. Optimizely Analytics is for when a product manager asks
+                I spent a week trying to prove otherwise. They were right. The Analytics Platform is for when a product manager asks
                 &ldquo;which accounts stopped using experiments after their first month?&rdquo; — joins, cohorts,
                 live Snowflake queries. Power BI is for when Finance asks &ldquo;how much does this customer owe
                 us in overages?&rdquo; — formatted, auditable, ARR-linked. Two tools, two audiences, one warehouse.
@@ -816,7 +816,7 @@ export default function Home() {
           <SectionLabel label="Decision Record 002" />
           <div className="space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Cloud Migration Evaluation</h2>
-            <p className="text-[#94a3b8]">Optimizely Data Platform: Snowflake on AWS to BigQuery on GCP</p>
+            <p className="text-[#94a3b8]">The customer data platform (CDP): Snowflake on AWS to BigQuery on GCP</p>
           </div>
 
           <div className="rounded-xl p-5 space-y-2" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.15)" }}>
@@ -829,7 +829,7 @@ export default function Home() {
           </div>
           <Objection
             question="Why not just use the native BigQuery connector for Snowflake?"
-            answer="The BigQuery Data Transfer Service supports Snowflake tables. The problem: the Optimizely Data Platform exposes all customer data exclusively through Snowflake secure views — not tables. Secure views hide the underlying SQL definition, and BQ DTS cannot execute against them. This eliminates the native connector before cost or complexity is even modelled. The constraint is architectural: it's a hard incompatibility, not a trade-off."
+            answer="The BigQuery Data Transfer Service supports Snowflake tables. The problem: the customer data platform (CDP) exposes all customer data exclusively through Snowflake secure views — not tables. Secure views hide the underlying SQL definition, and BQ DTS cannot execute against them. This eliminates the native connector before cost or complexity is even modelled. The constraint is architectural: it's a hard incompatibility, not a trade-off."
           />
 
           <div className="space-y-6">
@@ -877,7 +877,7 @@ export default function Home() {
           <div className="space-y-2">
             {[
               { title: "Secure View Incompatibility",  tag: "CRITICAL",   col: "#f43f5e", body: "BigQuery Data Transfer Service only supports tables, not Snowflake secure views. Customer data is exposed exclusively via secure views: the primary GCP connector cannot read it. Any migration must handle this by materializing data upstream first." },
-              { title: "Per-Customer Database Sprawl", tag: "CRITICAL",   col: "#f43f5e", body: "The Optimizely Data Platform uses a per-customer database pattern with many separate customer databases. Each represents an independent orchestration unit: a naive export would require many parallel jobs, dramatically increasing coordination complexity and failure surface area." },
+              { title: "Per-Customer Database Sprawl", tag: "CRITICAL",   col: "#f43f5e", body: "The customer data platform (CDP) uses a per-customer database pattern with many separate customer databases. Each represents an independent orchestration unit: a naive export would require many parallel jobs, dramatically increasing coordination complexity and failure surface area." },
               { title: "Incremental vs Full Export",   tag: "TRADE-OFF",  col: "#fbbf24", body: "Full weekly exports eliminate incremental complexity but multiply egress cost. Incremental approaches (Iceberg, CDC) reduce ongoing cost but require change tracking, schema evolution handling, and more complex failure recovery procedures." },
             ].map((item) => (
               <div key={item.title} style={{ display: "flex", borderRadius: "10px", overflow: "hidden", border: `1px solid ${item.col}22` }}>
@@ -922,14 +922,14 @@ export default function Home() {
           </div>
 
           <SectionLabel label="Decision Record 001" />
-          <h2 className="text-2xl font-bold text-white">Why Optimizely Analytics</h2>
+          <h2 className="text-2xl font-bold text-white">Why the Analytics Platform</h2>
 
           <div className="space-y-2">
             {[
-              { title: "Warehouse-Native",    body: "Queries Snowflake directly: zero sync infrastructure, no ETL pipelines, no mirror tables to maintain. The data Optimizely Analytics reads is the data that exists. No version skew possible."             },
+              { title: "Warehouse-Native",    body: "Queries Snowflake directly: zero sync infrastructure, no ETL pipelines, no mirror tables to maintain. The data the Analytics Platform reads is the data that exists. No version skew possible."             },
               { title: "ARR-Linked Metrics",  body: "Engagement data can be joined to ARR and Salesforce in a single Snowflake query, enabling product-led growth analysis at the account level that Mixpanel couldn't support."             },
-              { title: "Cross-Product Joins", body: "Unified analysis across Optimizely's product suite: experiment results, CMS, feature flags, and Opal credit usage in one query without any data movement."                             },
-              { title: "Opti on Opti",        body: "Optimizely's own product: internal dogfooding creates a direct feedback loop from analytics usage to product development. Every gap in Optimizely Analytics I found as an analyst, I could report directly." },
+              { title: "Cross-Product Joins", body: "Unified analysis across the product suite: experiment results, CMS, feature flags, and AI agent credit usage in one query without any data movement."                             },
+              { title: "Dogfooding",          body: "The analytics platform is one of the company's own products: internal dogfooding creates a direct feedback loop from analytics usage to product development. Every gap in the Analytics Platform I found as an analyst, I could report directly." },
             ].map((item) => (
               <div key={item.title} style={{ display: "flex", alignItems: "baseline", gap: "16px", padding: "14px 20px", borderRadius: "10px", background: "rgba(52,211,153,0.04)", borderTop: "1px solid rgba(52,211,153,0.1)", borderRight: "1px solid rgba(52,211,153,0.1)", borderBottom: "1px solid rgba(52,211,153,0.1)", borderLeft: "3px solid #34d399" }}>
                 <span style={{ fontSize: "0.88rem", fontWeight: 700, color: "#34d399", flexShrink: 0, minWidth: "160px" }}>{item.title}</span>
@@ -1065,7 +1065,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="space-y-2">
-                <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#e2e8f0" }}>Optimizely Analytics adoption outgrew the original scope.</p>
+                <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#e2e8f0" }}>Analytics Platform adoption outgrew the original scope.</p>
                 <p style={{ fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.75 }}>
                   I planned for three tiers: product managers, Customer Success, and Executive. Finance and Sales found the dashboards before
                   I finished building them. I had to extend the tier model twice post-launch. The informal exploration
@@ -1079,7 +1079,7 @@ export default function Home() {
                   <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#e2e8f0" }}>Three days before decommission, a 4% discrepancy surfaced.</p>
                 </div>
                 <p style={{ fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.75 }}>
-                  The qualified experiment rate was 4% lower in Optimizely Analytics than in Mixpanel. I found it three days before
+                  The qualified experiment rate was 4% lower in the Analytics Platform than in Mixpanel. I found it three days before
                   the planned shutdown. If I had stayed on schedule, it would have appeared in the next board
                   deck — the same place the original problem started. I delayed decommission by two weeks, traced
                   it to a windowing definition mismatch masked by sync lag, and validated every metric before
@@ -1090,7 +1090,7 @@ export default function Home() {
           </div>
           <ChapterSummary points={[
             "Both decisions were challenged. Both held. Decision Record 001 shipped with a zero-downtime parallel run; Decision Record 002's primary recommendation (service rewrite) delivered on schedule: the fallback was never activated.",
-            "Six months later: Optimizely Analytics adoption exceeded the planned scope, and the hardest part of decommissioning Mixpanel was aligning metric definitions, not the technical migration itself.",
+            "Six months later: Analytics Platform adoption exceeded the planned scope, and the hardest part of decommissioning Mixpanel was aligning metric definitions, not the technical migration itself.",
           ]} />
         </section>
 
@@ -1100,9 +1100,9 @@ export default function Home() {
             Ch04: Patterns That Travel
         ═══════════════════════════════════════════════════════ */}
         <section id="patterns" className="space-y-8">
-          <ChapterBadge ch="04" title="Patterns That Travel" desc="Not Optimizely-specific" />
+          <ChapterBadge ch="04" title="Patterns That Travel" desc="Not platform-specific" />
           <p className="max-w-2xl text-[#94a3b8] leading-relaxed">
-            These weren&apos;t Optimizely-specific problems. The same architectural pressures appear across every
+            These weren&apos;t platform-specific problems. The same architectural pressures appear across every
             industry that runs a data-heavy product: analytics siloing, cloud migration cost modelling, and the
             audience-based BI split. The platform names swap out. The pattern doesn&apos;t.
           </p>
@@ -1125,7 +1125,7 @@ export default function Home() {
         <section id="stack" className="space-y-6">
           <SectionLabel label="Tech Stack" />
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {["Snowflake", "BigQuery", "AWS", "GCP", "dbt", "Python", "Optimizely Analytics", "Segment", "Power BI"].map((tag) => (
+            {["Snowflake", "BigQuery", "AWS", "GCP", "dbt", "Python", "Analytics Platform", "Segment", "Power BI"].map((tag) => (
               <SAToolCard key={tag} name={tag} />
             ))}
           </div>
@@ -1334,13 +1334,13 @@ function WarehouseArchDiagram() {
     {
       id: "transform", label: "TRANSFORM", badge: "dbt Modelled", color: "#FF694B",
       contract: "Staging, intermediate, and mart models. Rename, cast, deduplicate, join, resolve identity.",
-      tables: ["stg_segment_events", "stg_sfdc_accounts", "int_user_identity", "int_experiment_results", "int_opal_usage", "mart_feature_adoption"],
+      tables: ["stg_segment_events", "stg_sfdc_accounts", "int_user_identity", "int_experiment_results", "int_ai_agent_usage", "mart_feature_adoption"],
       tag: "Tested + Documented",
     },
     {
       id: "reporting", label: "REPORTING", badge: "Consumer-Ready", color: "#6366f1",
-      contract: "ARR-joined, identity-resolved, cross-product cohorts. Optimizely Analytics, Power BI, and Cortex Analyst query here.",
-      tables: ["mart_experiment_qualified", "dim_account_arr", "fct_events", "mart_opal_billing", "mart_cs_health", "dim_user_identity"],
+      contract: "ARR-joined, identity-resolved, cross-product cohorts. The Analytics Platform, Power BI, and Cortex Analyst query here.",
+      tables: ["mart_experiment_qualified", "dim_account_arr", "fct_events", "mart_ai_agent_billing", "mart_cs_health", "dim_user_identity"],
       tag: "<2s P95",
     },
   ];
@@ -1472,7 +1472,7 @@ function BeforeAfterToggle() {
           const col = v === "before" ? "#ef4444" : "#34d399";
           return (
             <button key={v} onClick={() => setView(v)} style={{ padding: "8px 20px", borderRadius: "20px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", border: `1px solid ${isActive ? col + "55" : "rgba(255,255,255,0.1)"}`, background: isActive ? `${col}15` : "rgba(255,255,255,0.03)", color: isActive ? col : "#64748b", transition: "all 0.2s ease" }}>
-              {v === "before" ? "Before (Mixpanel era)" : "After (Optimizely Analytics)"}
+              {v === "before" ? "Before (Mixpanel era)" : "After (Analytics Platform)"}
             </button>
           );
         })}
@@ -1864,7 +1864,7 @@ function DataFlowDiagram() {
     { name: "CMS",             cloud: "Azure", cloudCol: "#0078D4", col: "#38bdf8" },
     { name: "Welcome",         cloud: "AWS",   cloudCol: "#FF9900", col: "#f59e0b" },
     { name: "Data Platform",   cloud: "AWS",   cloudCol: "#FF9900", col: "#34d399" },
-    { name: "Opal",            cloud: "GCP",   cloudCol: "#34A853", col: "#a78bfa" },
+    { name: "AI Agent",        cloud: "GCP",   cloudCol: "#34A853", col: "#a78bfa" },
   ];
 
   const thirdParty = [
@@ -1898,7 +1898,7 @@ function DataFlowDiagram() {
         </p>
 
         <p style={{ fontSize: "0.55rem", fontWeight: 700, color: "#374151", letterSpacing: "0.12em", textTransform: "uppercase" as const, textAlign: "center", marginBottom: "8px" }}>
-          Optimizely Products
+          Product Suite
         </p>
         <div style={{ display: "flex", justifyContent: "center", gap: "8px", flexWrap: "wrap", marginBottom: "4px" }}>
           {products.map((p) => (
@@ -2036,9 +2036,9 @@ function DataFlowDiagram() {
 
             <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
               {[
-                { name: "Optimizely Analytics", role: "product managers · product exploration",     col: "#6366f1" },
+                { name: "Analytics Platform",   role: "product managers · product exploration",     col: "#6366f1" },
                 { name: "Power BI",             role: "Finance · board reporting",      col: "#F2C811" },
-                { name: "Opal AI",              role: "Agents · board prep · alerts",   col: "#a78bfa" },
+                { name: "AI Agent",             role: "Agents · board prep · alerts",   col: "#a78bfa" },
               ].map((c) => (
                 <div key={c.name} style={{ background: `${c.col}0d`, border: `1px solid ${c.col}28`, borderRadius: "10px", padding: "10px 16px", textAlign: "center", minWidth: "130px" }}>
                   <div style={{ fontSize: "0.78rem", fontWeight: 700, color: c.col, marginBottom: "3px" }}>{c.name}</div>
@@ -2249,7 +2249,7 @@ const SA_TOOLS: Record<string, { color: string; category: string; svg: React.Rea
   GCP:                    { color: "#34A853", category: "Cloud (target)",    svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="#34A853" strokeWidth="1.8"/><path d="M12 7v5l3 3" stroke="#34A853" strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="12" r="2" fill="#34A853" fillOpacity="0.3"/></svg> },
   dbt:                    { color: "#FF694B", category: "Transformation",    svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="#FF694B" strokeWidth="1.8" strokeLinejoin="round"/><path d="M4 7L12 12L20 7" stroke="#FF694B" strokeWidth="1.8" strokeLinecap="round" opacity="0.5"/><line x1="12" y1="12" x2="12" y2="22" stroke="#FF694B" strokeWidth="1.8" opacity="0.5"/></svg> },
   Python:                 { color: "#3776AB", category: "Scripting",         svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 2C9 2 8 3.5 8 5v3h4.5v1H5.5C3.5 9 2 10.5 2 13s1.4 4 3.5 4H7v-2.5C7 12.5 8.5 11 11 11h6c2 0 3-1.2 3-3V5c0-2-1.5-3-8-3Z" fill="#3776AB" fillOpacity="0.8"/><circle cx="10" cy="5.5" r="1" fill="white"/><path d="M12 22c3 0 4-1.5 4-3v-3h-4.5v-1h6.5c2 0 3.5-1.5 3.5-4s-1.4-4-3.5-4H17v2.5C17 11.5 15.5 13 13 13H7c-2 0-3 1.2-3 3v3c0 2 1.5 3 8 3Z" fill="#FFD43B" fillOpacity="0.9"/><circle cx="14" cy="18.5" r="1" fill="#3776AB"/></svg> },
-  "Optimizely Analytics": { color: "#6366f1", category: "Product Analytics", svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="#6366f1" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="#6366f1" opacity="0.25"/><circle cx="12" cy="12" r="1.5" fill="#6366f1"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="#6366f1" strokeWidth="2" strokeLinecap="round"/></svg> },
+  "Analytics Platform":   { color: "#6366f1", category: "Product Analytics", svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><circle cx="12" cy="12" r="9" stroke="#6366f1" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="#6366f1" opacity="0.25"/><circle cx="12" cy="12" r="1.5" fill="#6366f1"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="#6366f1" strokeWidth="2" strokeLinecap="round"/></svg> },
   Segment:                { color: "#52BD94", category: "Event Collection",  svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M18 7H10a5 5 0 0 0 0 10h3" stroke="#52BD94" strokeWidth="2" strokeLinecap="round"/><path d="M6 17h8a5 5 0 0 0 0-10H9" stroke="#52BD94" strokeWidth="2" strokeLinecap="round" opacity="0.55"/><circle cx="18" cy="7" r="2" fill="#52BD94"/><circle cx="6" cy="17" r="2" fill="#52BD94" opacity="0.55"/></svg> },
   "Power BI":             { color: "#F2C811", category: "Business Intel.",   svg: <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><rect x="14" y="4" width="6" height="16" rx="1.5" fill="#F2C811"/><rect x="8" y="9" width="5" height="11" rx="1.5" fill="#F2C811" opacity="0.7"/><rect x="2" y="14" width="5" height="6" rx="1.5" fill="#F2C811" opacity="0.4"/></svg> },
 };
