@@ -1,5 +1,4 @@
 "use client";
-import GithubLink from "./GithubLink";
 import React, { useState, useEffect, useRef } from "react";
 
 // ── Data Constants ────────────────────────────────────────────────────────────
@@ -1155,29 +1154,30 @@ export default function Home() {
         </section>
 
         {/* ─── FOOTER ─── */}
-        <footer className="pt-8 pb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
-          <div className="space-y-4">
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", alignItems: "center" }}>
-              <span style={{ fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.12em", color: "#64748b", marginRight: "4px" }}>Portfolio</span>
-              {[
-                { label: "Product Intelligence Platform", href: "https://product-intelligence-platform.vercel.app", color: "#6366f1" },
-                { label: "Data Engineering Foundation",   href: "https://data-engineering-foundation.vercel.app",   color: "#10b981" },
-                { label: "The Experiment Playbook",       href: "https://experimentation-science.vercel.app",       color: "#f59e0b" },
-              ].map(({ label, href, color }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.79rem", fontWeight: 500, color: "#94a3b8", textDecoration: "none", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "7px", padding: "5px 12px", display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: color, flexShrink: 0 }} />
-                  {label}
-                </a>
-              ))}
-            </div>
-            <div style={{ fontSize: "0.7rem", color: "#64748b" }}>Written case study: all architecture decisions, cost models, and constraints described from first-hand evaluation work at Optimizely. No proprietary data reproduced.</div>
-            <div className="space-y-1">
-              <p className="text-sm font-semibold text-white">Wahid Tawsif Ratul</p>
-              <p className="text-xs text-[#64748b]">Data Scientist · Product Manager</p>
-            </div>
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '40px 32px 56px' }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 20 }}>
+          <div>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#e2e8f0', marginBottom: 5 }}>Wahid Tawsif Ratul</div>
+            <div style={{ fontSize: '0.8rem', color: '#64748b' }}>© 2026 · Data Scientist · Product Manager</div>
           </div>
-          <GithubLink />
-        </footer>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            {[
+              { label: 'LinkedIn', href: 'https://linkedin.com/in/wahidratul112296', path: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.64h.05c.53-1 1.83-2.05 3.77-2.05C20.5 8.59 22 11 22 14.4V21h-4v-5.86c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z' },
+              { label: 'GitHub', href: 'https://github.com/ratul003', path: 'M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z' },
+              { label: 'Medium', href: 'https://medium.com/@wahidtratul', path: 'M2.5 5.5l1.7 2v9.7l-2 2.3h5.4l-2-2.3V8.4l4.9 11.1h.1l4.3-10.5v8.2l-1.3 1.3v.2h6.4v-.2l-1.3-1.3V6.9l1.3-1.3v-.1h-4.5L13 13.9 9.3 5.5z' },
+              { label: 'Email', href: 'mailto:wahidtratul@gmail.com', path: '' },
+            ].map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} style={{ color: '#64748b', display: 'inline-flex' }}>
+                {s.label === 'Email' ? (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
+                ) : (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={s.path} /></svg>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
 
       </div>
     </main>
