@@ -178,7 +178,7 @@ const ALT_DETAILS = [
   {
     num: 6, name: "Service Rewrite", approach: "Rewrite core platform services as BigQuery-native",
     verdict: "PRIMARY", verdictColor: "#34d399", cost: "Lowest ongoing", complexity: "High",
-    reason: "The only approach that eliminates cross-cloud egress entirely. By rewriting the three core platform services to operate natively on BigQuery, Snowflake exits the serving layer: and with it go the egress cost and the secure view constraint, permanently. This is the only option with an improving long-term cost curve.",
+    reason: "The only approach that eliminates cross-cloud egress entirely. By rewriting the three core platform services to operate natively on BigQuery, Snowflake exits the serving layer, and with it go the egress cost and the secure view constraint, permanently. This is the only option with an improving long-term cost curve.",
     constraint: "Highest upfront engineering investment; phased delivery across three service teams",
     learn: null,
   },
@@ -513,7 +513,7 @@ const ARCH_INDUSTRY_MAP = [
     warehouseTool: "Snowflake or BigQuery + Piano Analytics or Amplitude. First-party data strategy is now a competitive differentiator.",
     biTool: "Looker or PowerBI for subscription finance: MRR, ARR, churn cohorts are investor-facing and must be separate from editorial",
     primaryMetric: "Content consumption depth, subscription conversion rate, LTV by acquisition channel, churn by engagement tier",
-    cloudMigration: "Third-party pixel deprecation is forcing a server-side, first-party data architecture industry-wide. When done correctly, this creates a cloud-agnostic event pipeline: and egress costs follow the same math as any warehouse migration.",
+    cloudMigration: "Third-party pixel deprecation is forcing a server-side, first-party data architecture industry-wide. When done correctly, this creates a cloud-agnostic event pipeline, and egress costs follow the same math as any warehouse migration.",
     biSplit: "Editorial analytics for content teams (Chartbeat, Piano: real-time consumption signals). Subscription finance for CFO and investor reporting (MRR, ARR, churn). These have incompatible formatting and latency requirements.",
     compliance: "GDPR, CCPA, and emerging state privacy laws. Cookie phase-out invalidates legacy attribution models. First-party consent architecture is now regulatory infrastructure.",
   },
@@ -576,7 +576,7 @@ export default function Home() {
           </div>
           <p className="max-w-2xl text-lg text-[#94a3b8] leading-relaxed">
             The Q3 board deck had two numbers for the same metric. Both technically defensible,
-            neither wrong — which made the disagreement impossible to resolve and the numbers impossible to trust.
+            neither wrong, which made the disagreement impossible to resolve and the numbers impossible to trust.
           </p>
           <p className="max-w-2xl text-[#64748b] leading-relaxed">
             This is how I made that question structurally impossible to ask: the cost model that ruled out
@@ -710,7 +710,7 @@ export default function Home() {
           </p>
           <Objection
             question="Why not just fix the sync instead of replacing Mixpanel entirely?"
-            answer="I considered it. The sync broke because Mixpanel's data model requires a copy of the warehouse data on its own infrastructure — that architecture is what makes schema changes catastrophic. You can make the sync more resilient: better error handling, schema evolution rules, automatic retries. But you can't make it impossible to fail, because the mirror is the failure mode. Fixing the sync would have been months of engineering to end up with a more robust version of the thing that was structurally wrong."
+            answer="I considered it. The sync broke because Mixpanel's data model requires a copy of the warehouse data on its own infrastructure, and that architecture is what makes schema changes catastrophic. You can make the sync more resilient: better error handling, schema evolution rules, automatic retries. But you can't make it impossible to fail, because the mirror is the failure mode. Fixing the sync would have been months of engineering to end up with a more robust version of the thing that was structurally wrong."
           />
 
           <p className="text-[#94a3b8] text-sm max-w-2xl">
@@ -802,12 +802,12 @@ export default function Home() {
               <p style={{ fontSize: "1.1rem", fontWeight: 700, color: "#F2C811", fontStyle: "italic", lineHeight: 1.45, marginBottom: "8px" }}>
                 The pivot tables aren&apos;t good enough.
               </p>
-              <p style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: "14px" }}>— Finance, after the first Analytics Platform demo</p>
+              <p style={{ fontSize: "0.72rem", color: "#64748b", marginBottom: "14px" }}>Finance, after the first Analytics Platform demo</p>
               <p style={{ fontSize: "0.85rem", color: "#94a3b8", lineHeight: 1.65 }}>
                 I spent a week trying to prove otherwise. They were right. The Analytics Platform is for when a product manager asks
-                &ldquo;which accounts stopped using experiments after their first month?&rdquo; — joins, cohorts,
+                &ldquo;which accounts stopped using experiments after their first month?&rdquo;: joins, cohorts,
                 live Snowflake queries. Power BI is for when Finance asks &ldquo;how much does this customer owe
-                us in overages?&rdquo; — formatted, auditable, ARR-linked. Two tools, two audiences, one warehouse.
+                us in overages?&rdquo;: formatted, auditable, ARR-linked. Two tools, two audiences, one warehouse.
               </p>
             </div>
           </div>
@@ -829,7 +829,7 @@ export default function Home() {
           </div>
           <Objection
             question="Why not just use the native BigQuery connector for Snowflake?"
-            answer="The BigQuery Data Transfer Service supports Snowflake tables. The problem: the customer data platform (CDP) exposes all customer data exclusively through Snowflake secure views — not tables. Secure views hide the underlying SQL definition, and BQ DTS cannot execute against them. This eliminates the native connector before cost or complexity is even modelled. The constraint is architectural: it's a hard incompatibility, not a trade-off."
+            answer="The BigQuery Data Transfer Service supports Snowflake tables. The problem: the customer data platform (CDP) exposes all customer data exclusively through Snowflake secure views, not tables. Secure views hide the underlying SQL definition, and BQ DTS cannot execute against them. This eliminates the native connector before cost or complexity is even modelled. The constraint is architectural: it's a hard incompatibility, not a trade-off."
           />
 
           <div className="space-y-6">
@@ -893,7 +893,7 @@ export default function Home() {
             ))}
           </div>
           <ChapterSummary points={[
-            "89% of full-export migration cost is AWS egress — not engineering, not tooling. Every patch approach optimised around this asymmetry. Only the service rewrite removed it.",
+            "89% of full-export migration cost is AWS egress, not engineering, not tooling. Every patch approach optimised around this asymmetry. Only the service rewrite removed it.",
             "Two hard constraints (secure view incompatibility, per-customer database pattern) eliminated options before cost was even modelled. Constraints are walls, not trade-offs.",
           ]} />
         </section>
@@ -909,7 +909,7 @@ export default function Home() {
           <div className="space-y-3 max-w-2xl">
             <p className="text-[#94a3b8] leading-relaxed">
               The right answer in each case was the one that removed the problem rather than optimised around it.
-              For Decision Record 001: eliminate the sync layer. The mirror was the failure mode — remove it, remove the failure.
+              For Decision Record 001: eliminate the sync layer. The mirror was the failure mode, so remove it and you remove the failure.
               For Decision Record 002: eliminate the serving layer that required cross-cloud movement. Patch approaches (caching,
               materialized views, ECO) all optimise a broken architecture without changing it.
             </p>
@@ -964,7 +964,7 @@ export default function Home() {
           <div className="rounded-xl p-6 space-y-3" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.2)" }}>
             <h3 className="text-xs font-semibold tracking-[0.15em] uppercase text-[#f43f5e]">My recommendation</h3>
             <p className="text-sm text-[#94a3b8] leading-relaxed">
-              Mixpanel was working. This migration was my recommendation to leadership: not a mandate from above.
+              Mixpanel was working. This migration was my recommendation to leadership, not a mandate from above.
               I made the case on three grounds: sync fragility was degrading trust in numbers at the board level;
               per-user pricing had a non-linear cost curve that was about to get expensive; and the structural inability
               to join behavioural data to ARR meant we could never build a real product-led growth motion on top of Mixpanel.
@@ -1060,7 +1060,7 @@ export default function Home() {
                 <p style={{ fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.75 }}>
                   Decision Record 002 named Iceberg Tables as the fallback if Service Rewrite timelines slipped. They didn&apos;t.
                   All three service teams delivered on schedule. The fallback is still sitting in the decision record, unused.
-                  Writing it was the right call — it gave engineering a credible off-ramp and made the primary
+                  Writing it was the right call: it gave engineering a credible off-ramp and made the primary
                   recommendation easier to approve.
                 </p>
               </div>
@@ -1070,7 +1070,7 @@ export default function Home() {
                   I planned for three tiers: product managers, Customer Success, and Executive. Finance and Sales found the dashboards before
                   I finished building them. I had to extend the tier model twice post-launch. The informal exploration
                   use case I hadn&apos;t designed for became the highest-frequency one. 100+ weekly active users wasn&apos;t
-                  a target — it&apos;s what showed up.
+                  a target. It&apos;s what showed up.
                 </p>
               </div>
               <div className="space-y-2">
@@ -1081,7 +1081,7 @@ export default function Home() {
                 <p style={{ fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.75 }}>
                   The qualified experiment rate was 4% lower in the Analytics Platform than in Mixpanel. I found it three days before
                   the planned shutdown. If I had stayed on schedule, it would have appeared in the next board
-                  deck — the same place the original problem started. I delayed decommission by two weeks, traced
+                  deck, the same place the original problem started. I delayed decommission by two weeks, traced
                   it to a windowing definition mismatch masked by sync lag, and validated every metric before
                   pulling the plug. The hardest part of the migration wasn&apos;t technical. It was definitional.
                 </p>
@@ -1491,7 +1491,7 @@ function BeforeAfterToggle() {
       </div>
       {view === "after" && (
         <div style={{ background: "rgba(52,211,153,0.06)", border: "1px solid rgba(52,211,153,0.2)", borderRadius: "10px", padding: "14px", textAlign: "center" }}>
-          <p style={{ fontSize: "0.82rem", color: "#34d399", fontWeight: 600 }}>Warehouse-native eliminated the sync layer: and with it, every score below 4.</p>
+          <p style={{ fontSize: "0.82rem", color: "#34d399", fontWeight: 600 }}>Warehouse-native eliminated the sync layer, and with it, every score below 4.</p>
         </div>
       )}
     </div>
@@ -1735,7 +1735,7 @@ function DecisionMatrix() {
         </tbody>
       </table>
       <p style={{ fontSize: "0.62rem", color: "#374151", marginTop: "14px", textAlign: "center" as const }}>
-        Service Rewrite wins on 4 of 5 criteria. Its only red cell is engineering effort — that cost justified the recommendation.
+        Service Rewrite wins on 4 of 5 criteria. Its only red cell is engineering effort, and that cost justified the recommendation.
       </p>
     </div>
   );
@@ -1909,7 +1909,7 @@ function DataFlowDiagram() {
           ))}
         </div>
 
-        <FlowArrow label="Segment SDK — identify / group / track" color="rgba(82,189,148,0.4)" />
+        <FlowArrow label="Segment SDK: identify / group / track" color="rgba(82,189,148,0.4)" />
 
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "4px" }}>
           <div style={{ background: "rgba(82,189,148,0.1)", border: "1px solid rgba(82,189,148,0.28)", borderRadius: "12px", padding: "10px 20px", display: "inline-flex", alignItems: "center", gap: "10px" }}>
@@ -2203,7 +2203,7 @@ function Objection({ question, answer }: { question: string; answer: string }) {
       style={{ background: open ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: "10px", padding: "14px 18px", cursor: "pointer", maxWidth: "600px", transition: "background 0.15s ease" }}
     >
       <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-        <span style={{ fontSize: "0.58rem", fontWeight: 800, color: "#94a3b8", background: "rgba(255,255,255,0.07)", padding: "3px 8px", borderRadius: "4px", flexShrink: 0, letterSpacing: "0.1em", whiteSpace: "nowrap" as const }}>BUT WAIT —</span>
+        <span style={{ fontSize: "0.58rem", fontWeight: 800, color: "#94a3b8", background: "rgba(255,255,255,0.07)", padding: "3px 8px", borderRadius: "4px", flexShrink: 0, letterSpacing: "0.1em", whiteSpace: "nowrap" as const }}>BUT WAIT...</span>
         <p style={{ fontSize: "0.85rem", fontWeight: 600, color: "#94a3b8", flex: 1, lineHeight: 1.45 }}>{question}</p>
         <span style={{ fontSize: "0.75rem", color: "#4b5563", flexShrink: 0, marginTop: "2px", display: "inline-block", transform: open ? "rotate(180deg)" : "none", transition: "transform 0.15s" }}>▾</span>
       </div>

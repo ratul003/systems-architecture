@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Systems Architecture — Wahid Tawsif Ratul";
+export const alt = "Systems Architecture: Wahid Tawsif Ratul";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -36,7 +36,7 @@ export default function Image() {
             Systems Architecture
           </div>
           <div style={{ marginTop: "26px", fontSize: "27px", lineHeight: 1.45, color: "#9a9ab8", maxWidth: "900px" }}>
-            Architecture decision records — the Mixpanel → warehouse-native migration and a multi-cloud cost evaluation, documented end to end.
+            Architecture decision records: the Mixpanel → warehouse-native migration and a multi-cloud cost evaluation, documented end to end.
           </div>
         </div>
 

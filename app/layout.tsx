@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://systems-architecture.vercel.app"),
   title: "Systems Architecture",
   description:
-    "Architecture decisions at scale — analytics platform migration and cloud infrastructure evaluation by Wahid Tawsif Ratul, Product Analytics Engineer at a B2B experimentation and digital-experience platform.",
+    "Architecture decisions at scale: analytics platform migration and cloud infrastructure evaluation by Wahid Tawsif Ratul, Product Analytics Engineer at a B2B experimentation and digital-experience platform.",
   openGraph: {
     title: "Systems Architecture",
     description:
-      "Architecture decisions at scale — analytics platform migration and cloud infrastructure evaluation.",
+      "Architecture decisions at scale: analytics platform migration and cloud infrastructure evaluation.",
     type: "website",
   },
 };
