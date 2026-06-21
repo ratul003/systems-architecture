@@ -710,7 +710,7 @@ export default function Home() {
           </p>
           <Objection
             question="Why not just fix the sync instead of replacing Mixpanel entirely?"
-            answer="I considered it. The sync broke because Mixpanel's data model requires a copy of the warehouse data on its own infrastructure, and that architecture is what makes schema changes catastrophic. You can make the sync more resilient: better error handling, schema evolution rules, automatic retries. But you can't make it impossible to fail, because the mirror is the failure mode. Fixing the sync would have been months of engineering to end up with a more robust version of the thing that was structurally wrong."
+            answer="I considered it. The sync broke because Mixpanel's data model requires a copy of the warehouse data on its own infrastructure, and that architecture is what makes schema changes catastrophic. You can make the sync more resilient: better error handling, schema evolution rules, automatic retries. But you can't make it impossible to fail, because the mirror is the failure mode. Fixing the sync would have been months of engineering to end up with a sturdier version of the thing that was structurally wrong."
           />
 
           <p className="text-[#94a3b8] text-sm max-w-2xl">
