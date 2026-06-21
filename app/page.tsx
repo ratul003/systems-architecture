@@ -136,7 +136,7 @@ const AFTER_DIMS = [
   { label: "Stakeholder trust",  score: 9, color: "#34d399", desc: "One number, one source: board-level reporting from the same warehouse as the product data"      },
   { label: "Cost scalability",   score: 8, color: "#34d399", desc: "Warehouse compute scales with query volume, not active user headcount"                           },
   { label: "Analysis speed",     score: 9, color: "#34d399", desc: "Analysts query directly: no export wait, no reconciliation, no gap-filling before analysis"     },
-  { label: "Cross-product view", score: 9, color: "#34d399", desc: "Unified cohorts across Experimentation, CMS, Feature Flags, and the AI agent in a single query"        },
+  { label: "Cross-product view", score: 9, color: "#34d399", desc: "Unified cohorts across Experimentation, CMS, Feature Flags, and the AI orchestration platform in a single query"        },
 ];
 
 const ALT_DETAILS = [
@@ -245,7 +245,7 @@ const PIPELINE_NODES = [
     ],
     ai: [
       "dbt Copilot: AI-generated model scaffolding from plain-language business logic descriptions, tests and docs included",
-      "Semantic Layer: define metrics once in dbt, query from the Analytics Platform, Power BI, or any AI agent without duplication or drift",
+      "Semantic Layer: define metrics once in dbt, query from the Analytics Platform, Power BI, or any AI orchestration platform without duplication or drift",
       "Auto-documentation: AI-generated column and model descriptions from SQL patterns, synced to dbt Explorer",
     ],
   },
@@ -266,9 +266,9 @@ const PIPELINE_NODES = [
     ],
   },
   {
-    id: "consumers", label: "Consumers", sub: "Dashboards + AI Agents", color: "#f43f5e",
+    id: "consumers", label: "Consumers", sub: "Dashboards + AI Orchestration", color: "#f43f5e",
     icon: "◈",
-    desc: "Three consumer tiers on the same Snowflake data: the in-house analytics platform for product analytics (product managers, daily exploration), Power BI for business intelligence (Finance, weekly reporting), and AI Agent workflows for analytics (board prep, Customer Success alerts, roadmap analysis). 100+ weekly active users across all three tiers.",
+    desc: "Three consumer tiers on the same Snowflake data: the in-house analytics platform for product analytics (product managers, daily exploration), Power BI for business intelligence (Finance, weekly reporting), and AI orchestration platform workflows for analytics (board prep, Customer Success alerts, roadmap analysis). 100+ weekly active users across all three tiers.",
     metrics: [
       { k: "Weekly active users",  v: "100+"  },
       { k: "Dashboard tiers",      v: "4"     },
@@ -276,7 +276,7 @@ const PIPELINE_NODES = [
       { k: "Stakeholder groups",   v: "3"     },
     ],
     ai: [
-      "AI Agent workflows: 4-persona analytics workflows for board prep, roadmap analysis, Customer Success risk alerts, and sales call prep",
+      "AI orchestration platform workflows: 4-persona analytics workflows for board prep, roadmap analysis, Customer Success risk alerts, and sales call prep",
       "Cortex Search: RAG over experiment hypotheses and product documentation stored natively in Snowflake",
       "PowerBI AI: anomaly detection and smart narrative generation on revenue and contract BI reports",
     ],
@@ -769,7 +769,7 @@ export default function Home() {
                   { label: "Audience",   value: "Product Managers, Analytics"                                              },
                   { label: "Cadence",    value: "Daily / real-time exploration"                                            },
                   { label: "Strengths",  value: "Behavioural cohorts, funnel analysis, cross-product joins, warehouse-native" },
-                  { label: "Dashboards", value: "Usage, adoption, AI Agent, PSAT: multi-tier by stakeholder"            },
+                  { label: "Dashboards", value: "Usage, adoption, AI orchestration platform, PSAT: multi-tier by stakeholder"            },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex gap-3 text-sm">
                     <span className="text-[#64748b] font-medium w-24 flex-shrink-0">{label}</span>
@@ -785,7 +785,7 @@ export default function Home() {
                   { label: "Audience",  value: "Sales, Customer Success, Finance, Executive"                              },
                   { label: "Cadence",   value: "Weekly / monthly reporting"                                                },
                   { label: "Strengths", value: "Revenue modelling, contract overages, ARR forecasting, board formatting"   },
-                  { label: "Reports",   value: "Overages, AI Agent billing, DXP forecasts: revenue and contracts"        },
+                  { label: "Reports",   value: "Overages, AI orchestration platform billing, DXP forecasts: revenue and contracts"        },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex gap-3 text-sm">
                     <span className="text-[#64748b] font-medium w-24 flex-shrink-0">{label}</span>
@@ -928,7 +928,7 @@ export default function Home() {
             {[
               { title: "Warehouse-Native",    body: "Queries Snowflake directly: zero sync infrastructure, no ETL pipelines, no mirror tables to maintain. The data the Analytics Platform reads is the data that exists. No version skew possible."             },
               { title: "ARR-Linked Metrics",  body: "Engagement data can be joined to ARR and Salesforce in a single Snowflake query, enabling product-led growth analysis at the account level that Mixpanel couldn't support."             },
-              { title: "Cross-Product Joins", body: "Unified analysis across the product suite: experiment results, CMS, feature flags, and AI agent credit usage in one query without any data movement."                             },
+              { title: "Cross-Product Joins", body: "Unified analysis across the product suite: experiment results, CMS, feature flags, and AI orchestration platform credit usage in one query without any data movement."                             },
               { title: "Dogfooding",          body: "The analytics platform is one of the company's own products: internal dogfooding creates a direct feedback loop from analytics usage to product development. Every gap in the Analytics Platform I found as an analyst, I could report directly." },
             ].map((item) => (
               <div key={item.title} style={{ display: "flex", alignItems: "baseline", gap: "16px", padding: "14px 20px", borderRadius: "10px", background: "rgba(52,211,153,0.04)", borderTop: "1px solid rgba(52,211,153,0.1)", borderRight: "1px solid rgba(52,211,153,0.1)", borderBottom: "1px solid rgba(52,211,153,0.1)", borderLeft: "3px solid #34d399" }}>
@@ -1334,13 +1334,13 @@ function WarehouseArchDiagram() {
     {
       id: "transform", label: "TRANSFORM", badge: "dbt Modelled", color: "#FF694B",
       contract: "Staging, intermediate, and mart models. Rename, cast, deduplicate, join, resolve identity.",
-      tables: ["stg_segment_events", "stg_sfdc_accounts", "int_user_identity", "int_experiment_results", "int_ai_agent_usage", "mart_feature_adoption"],
+      tables: ["stg_segment_events", "stg_sfdc_accounts", "int_user_identity", "int_experiment_results", "int_ai_orchestration_usage", "mart_feature_adoption"],
       tag: "Tested + Documented",
     },
     {
       id: "reporting", label: "REPORTING", badge: "Consumer-Ready", color: "#6366f1",
       contract: "ARR-joined, identity-resolved, cross-product cohorts. The Analytics Platform, Power BI, and Cortex Analyst query here.",
-      tables: ["mart_experiment_qualified", "dim_account_arr", "fct_events", "mart_ai_agent_billing", "mart_cs_health", "dim_user_identity"],
+      tables: ["mart_experiment_qualified", "dim_account_arr", "fct_events", "mart_ai_orchestration_billing", "mart_cs_health", "dim_user_identity"],
       tag: "<2s P95",
     },
   ];
@@ -1864,7 +1864,7 @@ function DataFlowDiagram() {
     { name: "CMS",             cloud: "Azure", cloudCol: "#0078D4", col: "#38bdf8" },
     { name: "Welcome",         cloud: "AWS",   cloudCol: "#FF9900", col: "#f59e0b" },
     { name: "Data Platform",   cloud: "AWS",   cloudCol: "#FF9900", col: "#34d399" },
-    { name: "AI Agent",        cloud: "GCP",   cloudCol: "#34A853", col: "#a78bfa" },
+    { name: "AI Orchestration", cloud: "GCP",   cloudCol: "#34A853", col: "#a78bfa" },
   ];
 
   const thirdParty = [
@@ -2038,7 +2038,7 @@ function DataFlowDiagram() {
               {[
                 { name: "Analytics Platform",   role: "product managers · product exploration",     col: "#6366f1" },
                 { name: "Power BI",             role: "Finance · board reporting",      col: "#F2C811" },
-                { name: "AI Agent",             role: "Agents · board prep · alerts",   col: "#a78bfa" },
+                { name: "AI Orchestration",     role: "Agents · board prep · alerts",   col: "#a78bfa" },
               ].map((c) => (
                 <div key={c.name} style={{ background: `${c.col}0d`, border: `1px solid ${c.col}28`, borderRadius: "10px", padding: "10px 16px", textAlign: "center", minWidth: "130px" }}>
                   <div style={{ fontSize: "0.78rem", fontWeight: 700, color: c.col, marginBottom: "3px" }}>{c.name}</div>
