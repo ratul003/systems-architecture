@@ -1768,9 +1768,9 @@ function AILayer() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {tab.capabilities.map((cap) => (
           <div key={cap.name} style={{ background: `${tab.color}06`, border: `1px solid ${tab.color}20`, borderRadius: "14px", padding: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-              <span style={{ fontSize: "0.9rem", fontWeight: 700, color: tab.color }}>{cap.name}</span>
-              <span style={{ fontSize: "0.58rem", fontWeight: 800, padding: "2px 7px", borderRadius: "4px", background: `${tab.color}20`, color: tab.color, letterSpacing: "0.08em", whiteSpace: "nowrap" }}>{cap.tag}</span>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "0.9rem", fontWeight: 700, color: tab.color, minWidth: 0 }}>{cap.name}</span>
+              <span style={{ fontSize: "0.58rem", fontWeight: 800, padding: "2px 7px", borderRadius: "4px", background: `${tab.color}20`, color: tab.color, letterSpacing: "0.08em", whiteSpace: "normal", overflowWrap: "anywhere" }}>{cap.tag}</span>
             </div>
             <p style={{ fontSize: "0.79rem", color: "#94a3b8", lineHeight: 1.65, flexGrow: 1 }}>{cap.desc}</p>
             <pre style={{ background: "#0a0a0f", border: `1px solid ${tab.color}20`, borderRadius: "8px", padding: "12px", fontFamily: "monospace", fontSize: "0.66rem", color: tab.color, lineHeight: 1.7, overflowX: "auto", margin: 0, whiteSpace: "pre" }}>
