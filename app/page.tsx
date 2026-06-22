@@ -606,7 +606,8 @@ export default function Home() {
 
         {/* ─── STORY ARC ─── */}
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(244,63,94,0.025)" }}>
-          <div style={{ display: "flex" }}>
+          <div style={{ overflowX: "auto", maxWidth: "100%" }}>
+          <div style={{ display: "flex", minWidth: "640px" }}>
             {STORY_CHAPTERS.map((ch, i) => (
               <a key={ch.label} href={ch.href} className="card-hover" style={{ flex: 1, padding: "20px 24px", textDecoration: "none", borderRight: i < STORY_CHAPTERS.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none", display: "block" }}>
                 <p style={{ fontSize: "0.58rem", fontWeight: 700, color: "#f43f5e", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: "4px" }}>{ch.label}</p>
@@ -614,6 +615,7 @@ export default function Home() {
                 <p style={{ fontSize: "0.67rem", color: "#6b7280", lineHeight: 1.4 }}>{ch.desc}</p>
               </a>
             ))}
+          </div>
           </div>
         </div>
 
@@ -1346,7 +1348,7 @@ function WarehouseArchDiagram() {
     },
   ];
   return (
-    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", overflowX: "auto" }}>
+    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", overflowX: "auto", maxWidth: "100%" }}>
       <div style={{ display: "flex", alignItems: "stretch", gap: "0", minWidth: "600px" }}>
         {layers.map((layer, i) => {
           const isHov = hovered === layer.id;
@@ -1506,7 +1508,7 @@ function PipelineFlowDiagram() {
   return (
     <div className="space-y-6">
       {/* Flow diagram - horizontal with SVG arrows */}
-      <div style={{ overflowX: "auto", paddingBottom: "8px" }}>
+      <div style={{ overflowX: "auto", maxWidth: "100%", paddingBottom: "8px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0", minWidth: "760px" }}>
           {PIPELINE_NODES.map((node, i) => {
             const isActive = active === node.id;
@@ -1695,7 +1697,7 @@ function DecisionMatrix() {
   const ratingBg    = (r: string) => r === "good" ? "rgba(52,211,153,0.08)" : r === "mid" ? "rgba(251,191,36,0.08)" : "rgba(244,63,94,0.08)";
 
   return (
-    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", overflowX: "auto" }}>
+    <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "16px", padding: "24px", overflowX: "auto", maxWidth: "100%" }}>
       <table style={{ width: "100%", minWidth: "580px", borderCollapse: "separate", borderSpacing: "0" }}>
         <thead>
           <tr>
@@ -1893,7 +1895,7 @@ function DataFlowDiagram() {
         })}
       </div>
 
-      <div style={{ background: "rgba(255,255,255,0.018)", border: `1px solid ${view === "before" ? "rgba(244,63,94,0.18)" : "rgba(52,211,153,0.18)"}`, borderRadius: "16px", padding: "28px 20px 24px", transition: "border-color 0.3s ease", overflowX: "auto" }}>
+      <div style={{ background: "rgba(255,255,255,0.018)", border: `1px solid ${view === "before" ? "rgba(244,63,94,0.18)" : "rgba(52,211,153,0.18)"}`, borderRadius: "16px", padding: "28px 20px 24px", transition: "border-color 0.3s ease", overflowX: "auto", maxWidth: "100%" }}>
         <p style={{ fontSize: "0.57rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase" as const, textAlign: "center", marginBottom: "20px", color: view === "before" ? "rgba(244,63,94,0.45)" : "rgba(52,211,153,0.45)" }}>
           {view === "before" ? "Legacy architecture · Mixpanel era" : "Current architecture · Warehouse-native"}
         </p>

@@ -36,6 +36,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  /* The page body must never scroll sideways; wide content scrolls in its own container.
+     `clip` (vs `hidden`) avoids creating a scroll container, so smooth anchor scrolling
+     and the position:fixed section rail are unaffected. */
+  overflow-x: clip;
+}
+
+/* ── Responsive containment ───────────────────────────────────────────────────
+   Wide content scrolls inside its own box instead of pushing the page width. */
+table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+pre {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 /* Subtle grid background */
